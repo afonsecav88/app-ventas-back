@@ -35,7 +35,7 @@ namespace Ventas.Controllers
 
             if (articulos == null)
             {
-                return NotFound("No Existen tareas.");
+                return NotFound("No existen árticulos en ventas.");
             }
 
             return Ok(articulos);
