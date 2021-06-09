@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Ventas.Services;
-	
 
-	
+
+
 
 namespace Ventas.Services
 {
@@ -22,11 +22,11 @@ namespace Ventas.Services
 
 
 
-        public CVentas(VentasContext Ventas, IWebHostEnvironment iWebHostEnv )
+        public CVentas(VentasContext Ventas, IWebHostEnvironment iWebHostEnv)
         {
             _Ventas = Ventas;
             _iWebHostEnv = iWebHostEnv;
-           
+
         }
 
 
@@ -35,14 +35,14 @@ namespace Ventas.Services
             return await _Ventas.Articulos.OrderBy(x => x.Nombre).ToListAsync();
         }
 
-            
-        
+
+
         public bool BuscarArticuloId(int articuloId)
         {
             return _Ventas.Articulos.Any(x => x.Id == articuloId);
         }
-      
-       
+
+
 
 
         public bool CreateArticulo(Articulo articulo)
@@ -72,7 +72,8 @@ namespace Ventas.Services
                 Precio = articulo.Precio,
                 ImagenPath = path + articulo.Imagen.FileName,
                 ContactoPropietario = articulo.ContactoPropietario,
-                UsuarioId = articulo.UsuarioId
+                UsuarioId = articulo.UsuarioId,
+                TelefonoPropietario = articulo.TelefonoPropietario
             };
 
             _Ventas.Articulos.Add(art);
@@ -105,6 +106,7 @@ namespace Ventas.Services
             art.Precio = articulo.Precio;
             art.ImagenPath = path + articulo.Imagen.FileName;
             art.ContactoPropietario = articulo.ContactoPropietario;
+            art.TelefonoPropietario = articulo.TelefonoPropietario;
 
             _Ventas.Articulos.Update(art);
             Save();
@@ -115,17 +117,17 @@ namespace Ventas.Services
         //hacer eliminacion de la BD ,pero no de la imagen fisica
         public bool DeleteArticulo(Articulo articulo)
         {
-           _Ventas.Articulos.Remove(articulo);
+            _Ventas.Articulos.Remove(articulo);
             return Save();
         }
 
 
         public Articulo GetArticuloById(int articuloId)
         {
-            return  _Ventas.Articulos.FirstOrDefault(x => x.Id == articuloId);
+            return _Ventas.Articulos.FirstOrDefault(x => x.Id == articuloId);
         }
-              
-        
+
+
         public async Task<IEnumerable<Articulo>> BuscarArticuloNombre(string nombre)
         {
             List<Articulo> listado = await _Ventas.Articulos.Where(x => x.Nombre.Contains(nombre.ToLower().Trim())).ToListAsync();
@@ -133,13 +135,19 @@ namespace Ventas.Services
             return listado;
         }
 
+        public async Task<IEnumerable<Articulo>> BuscarArticulosEmail(string email)
+        {
+            List<Articulo> listado = await _Ventas.Articulos.Where(x => x.ContactoPropietario == email.ToLower().Trim()).ToListAsync();
+
+            return listado;
+        }
 
 
         public bool Save()
         {
-          return _Ventas.SaveChanges()>=0 ? true:false ;
+            return _Ventas.SaveChanges() >= 0 ? true : false;
         }
-             
-              
+
+
     }
 }

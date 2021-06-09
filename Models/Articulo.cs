@@ -29,6 +29,9 @@ namespace Ventas.Models
         public Usuario Usuario { get; set; }
 
         [Required]
-        public string ContactoPropietario { get; set; }     
+        public string ContactoPropietario { get; set; }
+
+        [Required]
+        public int TelefonoPropietario { get; set; }
     }
 }

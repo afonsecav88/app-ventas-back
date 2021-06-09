@@ -58,7 +58,7 @@ namespace Ventas.Controllers
     }
 
 
-    [HttpGet("{nombre}", Name = "GetArticuloByNombre")]
+    [HttpGet("findname/{nombre}", Name = "GetArticuloByNombre")]
     public async Task<ActionResult<IEnumerable<Articulo>>> GetArticuloByNombre(string nombre)
     {
         var articulo = await _context.BuscarArticuloNombre(nombre);
@@ -75,44 +75,61 @@ namespace Ventas.Controllers
         return Ok(articulo);
     }
 
+        [HttpGet("findemail/{email}", Name ="BuscarArticulosEmail")]
+        public async Task<ActionResult<IEnumerable<Articulo>>> BuscarArticulosEmail(string email)
+        {
+            var articulos = await _context.BuscarArticulosEmail(email);
 
-    /*
-            // POST /controller
-            [HttpPost]
-            public async Task<ActionResult<Articulo>> CreateArticulo([FromForm]ArticuloVista articulo)
+            if (email == null)
             {
-                if (articulo.Imagen != null)
-                {
-                    var a = _iWebHostEnv.WebRootPath;
-                    var fileName = Path.GetFileName(articulo.Imagen.FileName);
-                    var filePath = Path.Combine(a , "images\\Articulos", fileName);
-
-                    using (var fileSteam = new FileStream(filePath, FileMode.Create))
-                    {
-                        await articulo.Imagen.CopyToAsync(fileSteam);
-                    }
-
-                    Articulo art = new Articulo();
-                    art.Nombre = articulo.Nombre;
-                    art.Descripcion = articulo.Descripcion;
-                    art.Precio = articulo.Precio;
-                    art.ImagenPath = filePath;  //save the filePath to database ImagePath field.
-                    art.ContactoPropietario = articulo.ContactoPropietario;
-
-                     _context.CreateArticulo(art);
-                     _context.Save();
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return NotFound("Debes escribir algún criterio de búsqueda ");
             }
 
-*/
+            if (articulos == null)
+            {
+                return NotFound("Usted no ha puesto árticulos en venta");
+            }
 
-    // POST /controller
-    [HttpPost]
+            return Ok(articulos);
+        }
+
+        /*
+                // POST /controller
+                [HttpPost]
+                public async Task<ActionResult<Articulo>> CreateArticulo([FromForm]ArticuloVista articulo)
+                {
+                    if (articulo.Imagen != null)
+                    {
+                        var a = _iWebHostEnv.WebRootPath;
+                        var fileName = Path.GetFileName(articulo.Imagen.FileName);
+                        var filePath = Path.Combine(a , "images\\Articulos", fileName);
+
+                        using (var fileSteam = new FileStream(filePath, FileMode.Create))
+                        {
+                            await articulo.Imagen.CopyToAsync(fileSteam);
+                        }
+
+                        Articulo art = new Articulo();
+                        art.Nombre = articulo.Nombre;
+                        art.Descripcion = articulo.Descripcion;
+                        art.Precio = articulo.Precio;
+                        art.ImagenPath = filePath;  //save the filePath to database ImagePath field.
+                        art.ContactoPropietario = articulo.ContactoPropietario;
+
+                         _context.CreateArticulo(art);
+                         _context.Save();
+                        return Ok();
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+
+    */
+
+        // POST /controller
+        [HttpPost]
     public ActionResult<Articulo> CreateArticulo([FromForm]Articulo articulo)
     {
         if (articulo == null)
@@ -125,13 +142,12 @@ namespace Ventas.Controllers
 
             _context.CreateArticulo(articulo);
             _context.Save();
-            return Ok(" Articulo Creado");
+            return Ok("Su artículo ha sido insertado correctamente.");
 
         }
         else
         {
-            return BadRequest();
-
+                return BadRequest(new { mensaje = "Su artículo no ha sido insertado " });
         }
 
     }
@@ -139,9 +155,9 @@ namespace Ventas.Controllers
 
     // PUT /controller>/5
     [HttpPut("{id}", Name = "UpdateArticulo")]
-    public ActionResult UpdateArticulo(int Id, [FromForm] Articulo articulo)
+    public ActionResult UpdateArticulo(int Id, [FromBody] Articulo articulo)
     {
-        if (articulo.Imagen == null || articulo.Nombre == null || articulo.Descripcion == null || articulo.ContactoPropietario == null)
+            if (articulo.Imagen == null || articulo.Nombre == null || articulo.Descripcion == null || articulo.ContactoPropietario == null)
         {
             return BadRequest(ModelState);
         }

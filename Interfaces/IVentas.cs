@@ -12,8 +12,10 @@ namespace Ventas.Interfaces
        Task<IEnumerable<Articulo>> GetArticulos();
 
        Articulo GetArticuloById(int articuloId);
-
+                
         Task<IEnumerable<Articulo>> BuscarArticuloNombre(string nombre);
+
+        Task<IEnumerable<Articulo>> BuscarArticulosEmail(string email);
 
         bool BuscarArticuloId(int articuloId);
 
