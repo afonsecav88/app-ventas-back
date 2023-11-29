@@ -9,10 +9,10 @@ namespace Ventas.Interfaces
 {
     public interface IVentas
     {
-       Task<IEnumerable<Articulo>> GetArticulos();
+        Task<IEnumerable<Articulo>> GetArticulos();
 
-       Articulo GetArticuloById(int articuloId);
-                
+        Articulo GetArticuloById(int articuloId);
+
         Task<IEnumerable<Articulo>> BuscarArticuloNombre(string nombre);
 
         Task<IEnumerable<Articulo>> BuscarArticulosEmail(string email);
@@ -28,6 +28,6 @@ namespace Ventas.Interfaces
         bool DeleteArticulo(Articulo articulo);
 
         bool Save();
-       
+
     }
 }

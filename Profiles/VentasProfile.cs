@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Ventas.Profiles
 {
-    public class VentasProfile: Profile
+    public class VentasProfile : Profile
     {
-      
+
         //En esta clase declaro el mapeo de un modelo tarea a un DTO Tarea o viceversa
-        public VentasProfile( IMapper mapper)
+        public VentasProfile(IMapper mapper)
         {
-            CreateMap<Articulo,VentasReadDTO>().ReverseMap();
+            CreateMap<Articulo, VentasReadDTO>().ReverseMap();
         }
 
         public VentasProfile()

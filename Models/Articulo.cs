@@ -22,7 +22,7 @@ namespace Ventas.Models
         public string ImagenPath { get; set; }
         [NotMapped]
         public IFormFile Imagen { get; set; }
-       
+
         [Required]
         public int UsuarioId { get; set; }
 

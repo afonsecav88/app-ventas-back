@@ -23,6 +23,6 @@ namespace Ventas.Models
         public virtual DbSet<Articulo> Articulos { get; set; }
 
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        
+
     }
 }

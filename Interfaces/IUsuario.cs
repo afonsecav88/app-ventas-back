@@ -12,15 +12,13 @@ namespace Ventas.Interfaces
 
         Usuario Authenticate(string email, string password);
 
-        Usuario Register(string username,string email, string password);
+        Usuario Register(string username, string email, string password);
 
         string EncriptarPassword(string password);
 
         Usuario GetUsuarioById(int UsuarioId);
 
         Usuario GetUsuarioByEmail(string UsuarioEmail);
-               
-        //// hecho para password 
-        //bool PasswordIsOk(string Password);
+
     }
 }

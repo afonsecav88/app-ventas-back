@@ -78,7 +78,7 @@ namespace Ventas.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{Email}", Name ="GetUsuarioByEmail")]
+        [HttpGet("{Email}", Name = "GetUsuarioByEmail")]
         public ActionResult<Usuario> GetUsuarioByEmail(string Email)
         {
             var user = _context.GetUsuarioByEmail(Email);

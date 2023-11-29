@@ -27,13 +27,13 @@ namespace Ventas
 {
     public class Startup
     {
-      
-        public Startup(IConfiguration configuration) 
+
+        public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
-               
+
         }
-                public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -44,11 +44,11 @@ namespace Ventas
             services.AddControllers();
 
             //Configurado el contexto a la base de datos sql 
-            services.AddDbContext<VentasContext>(options=>
+            services.AddDbContext<VentasContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            //Configurando todo lo necesario para la autenticación
+            //Configurando todo lo necesario para la autenticaciï¿½n
             //Configurando el uso de JWT para la Autenticacion de la API 
             //Declarando el uso de un seed secreto,definido en appsettings.json 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -57,13 +57,13 @@ namespace Ventas
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            //definiendo el tipo de autenticación(Usando paquete JwtBearer para la autenticación)
+            //definiendo el tipo de autenticaciï¿½n(Usando paquete JwtBearer para la autenticaciï¿½n)
             services.AddAuthentication(x =>
             {
-                x.DefaultAuthenticateScheme =    JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme    =    JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                //configurando valores por defecto
+            //configurando valores por defecto
             .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
@@ -76,19 +76,19 @@ namespace Ventas
                     ValidateAudience = false
 
                 };
-            });   
-            
+            });
 
 
-            //Declarando la Inyección de Dependencias
-            services.AddScoped<IVentas,CVentas>();
+
+            //Declarando la Inyecciï¿½n de Dependencias
+            services.AddScoped<IVentas, CVentas>();
             services.AddScoped<IUsuario, CUsuario>();
 
             //Declarando el uso de automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(VentasProfile));
 
-          
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -104,7 +104,7 @@ namespace Ventas
 
             // Habilitando el uso de Archivos estaticos
             app.UseStaticFiles();
-          
+
 
             //permitiendo acceso desde el frontend
             app.UseCors(x => x
