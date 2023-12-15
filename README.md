@@ -1,6 +1,6 @@
 #Backend app de ventas (Api de Asp.net Core)
 
-## Api de Asp.net Core, con los endponit para hacer CRUD de artículos, permite registro,login y manejo de sesiones de usuarios , utiliza JWT.
+## Api de Asp.net Core, con los endpoints para hacer CRUD de artículos, permite registro,login y manejo de sesiones de usuarios , utiliza JWT.
 
 ### Módulo de Crud de artículos
 - Crear un artículo.
