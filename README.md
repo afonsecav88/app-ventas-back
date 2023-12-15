@@ -31,6 +31,4 @@
 6. .Levantar un contenedor de docker con mssqlserver user este comando:
 ```docker run -v BackendVentas:/var/opt/mssql/data -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=PasswordDBAqui" -u 0:0 -p 3306:1433 -d mcr.microsoft.com/mssql/server:2019-latest```
 
-7. Para levantar el server de desarrollo ```dotnet run```
-8. Para hacer el build de la app ```ng build``` 
-   
+7. Para levantar el server de desarrollo ```dotnet run```  
