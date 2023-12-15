@@ -19,7 +19,7 @@
 ### Nota: esta api usa base de datos mssqlserver. 
 
 1. Dependencias a instalar:  
-```dotnet add package Microsoft.EntityFrameworkCore.SqlServer```
+```dotnet add package Microsoft.EntityFrameworkCore.SqlServer``` , 
 ```dotnet add package Microsoft.EntityFrameworkCore.Design```
 
 3. Intalar tools entity framework: ```dotnet tool install --global dotnet-ef```
